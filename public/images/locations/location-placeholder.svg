@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" role="img" aria-label="Imagen temporal de ubicación pendiente de reemplazar">
+  <rect width="900" height="560" fill="#111111"/>
+  <rect x="70" y="120" width="760" height="260" fill="#1c1c1c" stroke="#fff8e8" stroke-width="3"/>
+  <rect x="110" y="160" width="220" height="140" fill="#d93226"/>
+  <rect x="380" y="160" width="360" height="140" fill="#f5b800"/>
+  <circle cx="220" cy="410" r="42" fill="#f5b800"/>
+  <circle cx="680" cy="410" r="42" fill="#d93226"/>
+  <text x="450" y="500" text-anchor="middle" fill="#fff8e8" font-family="Arial, sans-serif" font-size="32" font-weight="800">FOTO DE UBICACIÓN PENDIENTE</text>
+</svg>

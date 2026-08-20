@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-label="Imagen temporal de comida pendiente de reemplazar">
+  <rect width="900" height="600" fill="#1c1c1c"/>
+  <rect x="46" y="46" width="808" height="508" rx="18" fill="#111111" stroke="#f5b800" stroke-width="4"/>
+  <path d="M136 350c80-118 180-174 300-169 116 5 222 66 328 182-106 62-210 92-312 90-112-2-217-36-316-103Z" fill="#d93226"/>
+  <path d="M178 318c94-80 184-118 270-113 86 5 175 49 267 132-185 48-364 42-537-19Z" fill="#f5b800"/>
+  <text x="450" y="505" text-anchor="middle" fill="#fff8e8" font-family="Arial, sans-serif" font-size="34" font-weight="800">FOTO OFICIAL PENDIENTE</text>
+</svg>
