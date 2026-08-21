@@ -25,7 +25,7 @@ export const menuItems: MenuItem[] = [
   {
     id: "tripleta-churrasco-cuarteta",
     name: "Tripleta-Churrasco / Cuarteta",
-    description: "Una versión más intensa para cuando el hambre viene seria. Receta exacta pendiente de confirmar.",
+    description: "Una versión más intensa para cuando el hambre viene seria.",
     price: null,
     category: "tripletas",
     image: "/images/menu/menu-placeholder.svg",
@@ -103,7 +103,7 @@ export const menuItems: MenuItem[] = [
   {
     id: "papas-locas-tripleta",
     name: "Papas Locas de Tripleta",
-    description: "Papas cargadas con el sabor de la tripleta. Pendiente precio oficial.",
+    description: "Papas cargadas con el sabor de la tripleta.",
     price: null,
     category: "papas",
     image: "/images/menu/Papas-locas-de-tripleta.png",

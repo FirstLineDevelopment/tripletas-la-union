@@ -226,7 +226,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         <div className="hero-content">
           <p className="eyebrow">3 ubicaciones en Puerto Rico</p>
           <h1>El hambre no espera.</h1>
-          <p className="hero-copy">Tripletas, churrasco, pastrami y más. Sabor boricua hecho pa' ese hambre de verdad.</p>
+          <p className="hero-copy">Tripletas, churrasco, pastrami y más. Sabor boricua hecho pa' esa hambre de verdad.</p>
           <div className="button-row">
             <Link href="/menu" className="primary-cta" onClick={() => trackEvent("menu_view")}>
               Ver menú
@@ -259,7 +259,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
       <section className="section dark-band" id="menu">
         <div className="section-heading">
           <p className="eyebrow">Menú</p>
-          <h2>Pa' ese hambre de verdad.</h2>
+          <h2>Pa' esa hambre de verdad.</h2>
           <Link href="/menu" className="secondary-cta">
             Ver menú completo
           </Link>
@@ -404,7 +404,7 @@ function MenuPage({ onOrder }: { onOrder: () => void }) {
 function LocationsPage() {
   return (
     <main className="page">
-      <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Caguas, Av. Piñero y 65 de Infantería. Horarios editables y calculados en zona horaria de Puerto Rico." />
+      <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Caguas, Av. Piñero y 65 de Infantería." />
       <section className="section">
         <div className="location-grid">
           {locations.map((location) => (
