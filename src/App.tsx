@@ -43,9 +43,26 @@ const getPath = () => {
   return withoutBase.replace(/\/$/, "") || "/";
 };
 
+const getStickyHeaderHeight = () => document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
+
+const scrollToHashTarget = (hash: string) => {
+  const target = document.getElementById(decodeURIComponent(hash.replace(/^#/, "")));
+  if (!target) return;
+
+  const top = target.getBoundingClientRect().top + window.scrollY - getStickyHeaderHeight() - 50;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+};
+
 const navigate = (href: string) => {
   window.history.pushState({}, "", withBasePath(href));
   window.dispatchEvent(new PopStateEvent("popstate"));
+
+  const hash = href.includes("#") ? href.slice(href.indexOf("#")) : "";
+  if (hash) {
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToHashTarget(hash)));
+    return;
+  }
+
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
@@ -75,6 +92,11 @@ export function App() {
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
+
+  useEffect(() => {
+    if (!window.location.hash) return;
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToHashTarget(window.location.hash)));
+  }, [path]);
 
   useEffect(() => {
     const locationRoute = locations.find((location) => path === `/locations/${location.id}`);
