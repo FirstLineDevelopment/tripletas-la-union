@@ -440,8 +440,7 @@ p {
   background: rgba(255, 248, 232, 0.055);
 }
 
-.map-location-list strong,
-.map-location-list span {
+.map-location-list article > span {
   display: block;
 }
 
@@ -450,12 +449,25 @@ p {
   font-weight: 950;
 }
 
-.map-location-list span {
+.map-location-list article > span {
   margin-top: 4px;
   color: rgba(255, 248, 232, 0.82);
 }
 
-.map-location-list div {
+.map-location-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.map-location-heading .status {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  font-size: 0.76rem;
+}
+
+.map-location-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;

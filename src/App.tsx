@@ -485,16 +485,10 @@ function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvai
 }
 
 function LocationCard({ location, detailed = false }: { location: Location; detailed?: boolean }) {
-  const state = getOpenState(location);
-  const today = formatHours(getTodayHours(location));
   const verifiedPayments = location.paymentMethods.filter((method) => method.verified);
 
   return (
     <article className="location-card">
-      <div className="status-row">
-        <span className={state.isOpen ? "status open" : "status"}>{state.label}</span>
-        <span>Hoy: {today}</span>
-      </div>
       <h3>{location.shortName}</h3>
       <p>{location.addressLines.join(", ")}</p>
       {detailed && location.description ? <p>{location.description}</p> : null}
@@ -527,23 +521,30 @@ function MapPanel() {
         <h2 id="map-title">Todas las paradas</h2>
         <p>Encuentra la parada más cercana y abre la ruta directa en Google Maps.</p>
         <div className="map-location-list">
-          {locations.map((location) => (
-            <article key={location.id}>
-              <strong>{location.shortName}</strong>
-              <span>{location.addressLines.join(", ")}</span>
-              <div>
-                <a href={location.mapsUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("directions_location", { location: location.id })}>
-                  Cómo llegar
-                </a>
-                <a href={location.telUri} onClick={() => trackEvent("call_location", { location: location.id })}>
-                  Llamar
-                </a>
-                <Link href={`/locations/${location.id}`} onClick={() => trackEvent("location_selected", { location: location.id })}>
-                  Detalles
-                </Link>
-              </div>
-            </article>
-          ))}
+          {locations.map((location) => {
+            const state = getOpenState(location);
+
+            return (
+              <article key={location.id}>
+                <div className="map-location-heading">
+                  <strong>{location.shortName}</strong>
+                  <span className={state.isOpen ? "status open" : "status"}>{state.label}</span>
+                </div>
+                <span>{location.addressLines.join(", ")}</span>
+                <div className="map-location-actions">
+                  <a href={location.mapsUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("directions_location", { location: location.id })}>
+                    Cómo llegar
+                  </a>
+                  <a href={location.telUri} onClick={() => trackEvent("call_location", { location: location.id })}>
+                    Llamar
+                  </a>
+                  <Link href={`/locations/${location.id}`} onClick={() => trackEvent("location_selected", { location: location.id })}>
+                    Detalles
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
       <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
