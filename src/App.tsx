@@ -159,7 +159,7 @@ function Header({
           onCloseMenu();
         }}
       >
-        MenÃº
+        Menú
       </Link>
       <Link href="/locations" onClick={onCloseMenu}>
         Ubicaciones
@@ -168,7 +168,7 @@ function Header({
         Nosotros
       </Link>
       <Link href="/#galeria" onClick={onCloseMenu}>
-        GalerÃ­a
+        Galería
       </Link>
     </>
   );
