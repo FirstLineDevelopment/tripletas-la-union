@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { business } from "./data/business";
 import { locations } from "./data/locations";
 import { menuCategories, menuItems } from "./data/menu";
@@ -101,9 +101,15 @@ export function App() {
     return <HomePage onOrder={() => setOrderModalOpen(true)} />;
   }, [path]);
 
+
   return (
     <>
-      <Header menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((open) => !open)} onOrder={() => setOrderModalOpen(true)} />
+      <Header
+        menuOpen={menuOpen}
+        onToggleMenu={() => setMenuOpen((open) => !open)}
+        onCloseMenu={() => setMenuOpen(false)}
+        onOrder={() => setOrderModalOpen(true)}
+      />
       {page}
       <Footer />
       <MobileActionBar onOrder={() => setOrderModalOpen(true)} />
@@ -113,7 +119,22 @@ export function App() {
   );
 }
 
-function Header({ menuOpen, onToggleMenu, onOrder }: { menuOpen: boolean; onToggleMenu: () => void; onOrder: () => void }) {
+function Header({
+  menuOpen,
+  onToggleMenu,
+  onCloseMenu,
+  onOrder,
+}: {
+  menuOpen: boolean;
+  onToggleMenu: () => void;
+  onCloseMenu: () => void;
+  onOrder: () => void;
+}) {
+  const headerRef = useRef<HTMLElement>(null);
+  const handleMobileMenuOrder = () => {
+    onCloseMenu();
+    onOrder();
+  };
   const nav = (
     <>
       <Link href="/">Inicio</Link>
@@ -126,8 +147,47 @@ function Header({ menuOpen, onToggleMenu, onOrder }: { menuOpen: boolean; onTogg
     </>
   );
 
+  const mobileNav = (
+    <>
+      <Link href="/" onClick={onCloseMenu}>
+        Inicio
+      </Link>
+      <Link
+        href="/menu"
+        onClick={() => {
+          trackEvent("menu_view");
+          onCloseMenu();
+        }}
+      >
+        MenÃº
+      </Link>
+      <Link href="/locations" onClick={onCloseMenu}>
+        Ubicaciones
+      </Link>
+      <Link href="/#nosotros" onClick={onCloseMenu}>
+        Nosotros
+      </Link>
+      <Link href="/#galeria" onClick={onCloseMenu}>
+        GalerÃ­a
+      </Link>
+    </>
+  );
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnOutsidePointerDown = (event: PointerEvent) => {
+      if (!window.matchMedia("(max-width: 900px)").matches) return;
+      if (headerRef.current?.contains(event.target as Node)) return;
+      onCloseMenu();
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePointerDown);
+    return () => document.removeEventListener("pointerdown", closeOnOutsidePointerDown);
+  }, [menuOpen, onCloseMenu]);
+
   return (
-    <header className="site-header">
+    <header className="site-header" ref={headerRef}>
       <nav className="nav-shell" aria-label="Navegación principal">
         <Link href="/" className="brand-mark">
           <img className="brand-badge" src={assetUrl("/images/Favicon.png")} alt="Tripletas La Unión" />
@@ -148,8 +208,8 @@ function Header({ menuOpen, onToggleMenu, onOrder }: { menuOpen: boolean; onTogg
         </button>
       </nav>
       <div id="mobile-nav" className={`mobile-nav ${menuOpen ? "is-open" : ""}`}>
-        {nav}
-        <button className="primary-cta" onClick={onOrder}>
+        {mobileNav}
+        <button className="primary-cta" onClick={handleMobileMenuOrder}>
           Ordena / llama
         </button>
       </div>
