@@ -13,6 +13,14 @@ const routes = {
   locations: "/locations",
 };
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const withBasePath = (href: string) => {
+  if (!href.startsWith("/")) return href;
+  if (href === "/") return `${basePath || "/"}`;
+  return `${basePath}${href}`;
+};
+
 const routeMeta: Record<string, { title: string; description: string }> = {
   "/": {
     title: "Tripletas La Unión | Tripletas y comida late night en Puerto Rico",
@@ -28,10 +36,14 @@ const routeMeta: Record<string, { title: string; description: string }> = {
   },
 };
 
-const getPath = () => window.location.pathname.replace(/\/$/, "") || "/";
+const getPath = () => {
+  const pathname = window.location.pathname;
+  const withoutBase = basePath && pathname.startsWith(basePath) ? pathname.slice(basePath.length) || "/" : pathname;
+  return withoutBase.replace(/\/$/, "") || "/";
+};
 
 const navigate = (href: string) => {
-  window.history.pushState({}, "", href);
+  window.history.pushState({}, "", withBasePath(href));
   window.dispatchEvent(new PopStateEvent("popstate"));
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
@@ -39,7 +51,7 @@ const navigate = (href: string) => {
 const Link = ({ href, children, className, onClick }: { href: string; children: React.ReactNode; className?: string; onClick?: () => void }) => (
   <a
     className={className}
-    href={href}
+    href={withBasePath(href)}
     onClick={(event) => {
       if (href.startsWith("/")) {
         event.preventDefault();
