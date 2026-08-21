@@ -290,11 +290,6 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
             Ver todas
           </Link>
         </div>
-        <div className="location-grid">
-          {locations.map((location) => (
-            <LocationCard key={location.id} location={location} />
-          ))}
-        </div>
         <MapPanel />
       </section>
 
@@ -406,11 +401,6 @@ function LocationsPage() {
     <main className="page">
       <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Caguas, Av. Piñero y 65 de Infantería." />
       <section className="section">
-        <div className="location-grid">
-          {locations.map((location) => (
-            <LocationCard key={location.id} location={location} detailed />
-          ))}
-        </div>
         <MapPanel />
       </section>
     </main>
@@ -479,31 +469,6 @@ function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvai
           ))}
         </div>
         {showAvailability ? <small>Disponible según menú oficial por ubicación. Confirmar con el negocio.</small> : null}
-      </div>
-    </article>
-  );
-}
-
-function LocationCard({ location, detailed = false }: { location: Location; detailed?: boolean }) {
-  const verifiedPayments = location.paymentMethods.filter((method) => method.verified);
-
-  return (
-    <article className="location-card">
-      <h3>{location.shortName}</h3>
-      <p>{location.addressLines.join(", ")}</p>
-      {detailed && location.description ? <p>{location.description}</p> : null}
-      <p className="phone-line">{location.phone}</p>
-      {verifiedPayments.length > 0 ? <small>Pagos verificados: {verifiedPayments.map((payment) => payment.label).join(", ")}</small> : <small>Pagos pendientes de confirmar.</small>}
-      <div className="button-row">
-        <a className="primary-cta" href={location.telUri} onClick={() => trackEvent("call_location", { location: location.id })}>
-          Llamar
-        </a>
-        <a className="secondary-cta" href={location.mapsUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("directions_location", { location: location.id })}>
-          Direcciones
-        </a>
-        <Link href={`/locations/${location.id}`} className="text-link" onClick={() => trackEvent("location_selected", { location: location.id })}>
-          Detalles
-        </Link>
       </div>
     </article>
   );
