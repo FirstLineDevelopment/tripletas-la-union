@@ -840,11 +840,7 @@ p {
   }
 
   .map-canvas {
-    min-height: 280px;
-  }
-
-  .map-canvas iframe {
-    min-height: 280px;
+    display: none;
   }
 
   .mobile-action-bar {
