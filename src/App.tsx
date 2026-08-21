@@ -6,6 +6,7 @@ import { socials } from "./data/socials";
 import type { Location, MenuCategory, MenuItem } from "./types";
 import { dayLabel, formatHours, getOpenState, getTodayHours, openingHoursSpecification } from "./utils/hours";
 import { trackEvent } from "./utils/analytics";
+import { assetUrl } from "./utils/assets";
 
 const routes = {
   home: "/",
@@ -129,7 +130,7 @@ function Header({ menuOpen, onToggleMenu, onOrder }: { menuOpen: boolean; onTogg
     <header className="site-header">
       <nav className="nav-shell" aria-label="Navegación principal">
         <Link href="/" className="brand-mark">
-          <img className="brand-badge" src="/images/Favicon.png" alt="Tripletas La Unión" />
+          <img className="brand-badge" src={assetUrl("/images/Favicon.png")} alt="Tripletas La Unión" />
           <span>
             <strong>Tripletas La Unión</strong>
             <small>Puerto Rico</small>
@@ -161,7 +162,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
 
   return (
     <main>
-      <section className="hero">
+      <section className="hero" style={{ "--hero-image": `url("${assetUrl("/images/hero/tripleta-hero.png")}")` } as React.CSSProperties}>
         <div className="hero-content">
           <p className="eyebrow">3 ubicaciones en Puerto Rico</p>
           <h1>El hambre no espera.</h1>
@@ -257,7 +258,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
             </a>
           </div>
         </div>
-        <div className="gallery-grid" aria-label="Espacios reservados para fotografía aprobada">
+        <div className="gallery-grid" aria-label="Espacios reservados para fotografía aprobada" style={{ "--gallery-image": `url("${assetUrl("/images/gallery/gallery-placeholder.svg")}")` } as React.CSSProperties}>
           <span>Tripleta</span>
           <span>Papas locas</span>
           <span>Churrasco</span>
@@ -364,7 +365,7 @@ function LocationDetailPage({ location, onOrder }: { location: Location; onOrder
       <PageHero eyebrow="Ubicación" title={location.shortName} copy={`${location.addressLines.join(", ")}. ${state.label}: ${state.todayLabel}.`} />
       <section className="section location-detail">
         <div className="detail-main">
-          <img src={location.image} alt={`Imagen temporal para ${location.name}`} />
+          <img src={assetUrl(location.image)} alt={`Imagen temporal para ${location.name}`} />
           <h2>{location.name}</h2>
           {location.description ? <p>{location.description}</p> : null}
           <div className="button-row">
@@ -405,7 +406,7 @@ function PageHero({ eyebrow, title, copy }: { eyebrow: string; title: string; co
 function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvailability?: boolean }) {
   return (
     <article className="menu-card">
-      <img src={item.image} alt={`Imagen temporal para ${item.name}`} loading="lazy" />
+      <img src={assetUrl(item.image)} alt={`Imagen temporal para ${item.name}`} loading="lazy" />
       <div>
         <div className="card-topline">
           <h3>{item.name}</h3>
