@@ -516,19 +516,43 @@ function LocationCard({ location, detailed = false }: { location: Location; deta
 }
 
 function MapPanel() {
+  const mapQuery = encodeURIComponent(
+    locations.map((location) => `${location.name} ${location.addressLines.join(" ")}`).join(" ")
+  );
+
   return (
     <section className="map-panel" aria-labelledby="map-title">
       <div>
         <p className="eyebrow">Mapa</p>
         <h2 id="map-title">Todas las paradas</h2>
-        <p>Mapa visual liviano sin API pagada. Cada pin abre llamada, detalles y direcciones.</p>
+        <p>Encuentra la parada más cercana y abre la ruta directa en Google Maps.</p>
+        <div className="map-location-list">
+          {locations.map((location) => (
+            <article key={location.id}>
+              <strong>{location.shortName}</strong>
+              <span>{location.addressLines.join(", ")}</span>
+              <div>
+                <a href={location.mapsUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("directions_location", { location: location.id })}>
+                  Cómo llegar
+                </a>
+                <a href={location.telUri} onClick={() => trackEvent("call_location", { location: location.id })}>
+                  Llamar
+                </a>
+                <Link href={`/locations/${location.id}`} onClick={() => trackEvent("location_selected", { location: location.id })}>
+                  Detalles
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
-      <div className="map-canvas" aria-label="Mapa aproximado de ubicaciones en Puerto Rico">
-        {locations.map((location, index) => (
-          <Link key={location.id} href={`/locations/${location.id}`} className={`map-pin pin-${index + 1}`}>
-            <span>{location.shortName}</span>
-          </Link>
-        ))}
+      <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
+        <iframe
+          title="Mapa de Tripletas La Unión"
+          src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
     </section>
   );

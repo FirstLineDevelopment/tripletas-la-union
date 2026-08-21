@@ -407,57 +407,68 @@ p {
 .map-panel {
   margin-top: 28px;
   display: grid;
-  grid-template-columns: minmax(0, 0.7fr) minmax(300px, 1fr);
+  grid-template-columns: minmax(0, 0.78fr) minmax(300px, 1fr);
   gap: 20px;
   align-items: stretch;
 }
 
 .map-canvas {
-  position: relative;
   min-height: 330px;
   border-radius: 8px;
   overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(245, 184, 0, 0.22), transparent 34%),
-    radial-gradient(circle at 66% 38%, rgba(217, 50, 38, 0.34), transparent 24%),
-    linear-gradient(160deg, #252525, #101010);
+  background: var(--union-charcoal);
 }
 
-.map-canvas::before {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border: 2px dashed rgba(255, 248, 232, 0.16);
-  border-radius: 8px;
+.map-canvas iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  display: block;
+  border: 0;
 }
 
-.map-pin {
-  position: absolute;
+.map-location-list {
   display: grid;
-  place-items: center;
-  min-width: 88px;
-  min-height: 40px;
-  padding: 8px 10px;
-  border-radius: 6px;
-  background: var(--union-red);
-  color: var(--union-white);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.map-location-list article {
+  padding: 14px;
+  border: 1px solid rgba(255, 248, 232, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 248, 232, 0.055);
+}
+
+.map-location-list strong,
+.map-location-list span {
+  display: block;
+}
+
+.map-location-list strong {
+  color: var(--union-yellow);
   font-weight: 950;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
 }
 
-.pin-1 {
-  left: 20%;
-  top: 58%;
+.map-location-list span {
+  margin-top: 4px;
+  color: rgba(255, 248, 232, 0.82);
 }
 
-.pin-2 {
-  left: 55%;
-  top: 34%;
+.map-location-list div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-.pin-3 {
-  left: 68%;
-  top: 52%;
+.map-location-list a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--union-yellow);
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .late-night,
@@ -841,9 +852,8 @@ p {
     min-height: 280px;
   }
 
-  .map-pin {
-    min-width: 74px;
-    font-size: 0.82rem;
+  .map-canvas iframe {
+    min-height: 280px;
   }
 
   .mobile-action-bar {
