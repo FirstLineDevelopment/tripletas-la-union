@@ -655,7 +655,14 @@ function Footer() {
       <div className="legal-row">
         <span>Privacy Policy</span>
         <span>Términos</span>
-        {business.featureFlags.developerCredit ? <span>Website by FirstLine Development</span> : null}
+        {business.featureFlags.developerCredit ? (
+          <span>
+            Built by{" "}
+            <a href="https://firstlinedev.com" target="_blank" rel="noreferrer">
+              FirstLine Development
+            </a>
+          </span>
+        ) : null}
       </div>
     </footer>
   );

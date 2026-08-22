@@ -735,6 +735,17 @@ p {
   font-size: 0.9rem;
 }
 
+.legal-row a {
+  display: inline;
+  min-height: auto;
+  color: rgba(255, 248, 232, 0.9);
+  font-weight: 800;
+}
+
+.legal-row a:hover {
+  color: var(--union-yellow);
+}
+
 @media (max-width: 900px) {
   .desktop-nav,
   .desktop-cta {

@@ -16,7 +16,7 @@ export const business = {
     catering: false,
     englishLanguage: false,
     analytics: false,
-    developerCredit: false,
+    developerCredit: true,
   },
   analytics: {
     enabled: false,
