@@ -12,6 +12,8 @@ const routes = {
   home: "/",
   menu: "/menu",
   locations: "/locations",
+  privacy: "/privacy",
+  terms: "/terms",
 };
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -29,11 +31,27 @@ const routeMeta: Record<string, { title: string; description: string }> = {
   },
   "/menu": {
     title: "Menú | Tripletas La Unión",
-    description: "Explora tripletas, sándwiches, wraps y papas locas. Precios oficiales pendientes de confirmar.",
+    description: "Explora tripletas, sándwiches, wraps y papas locas de Tripletas La Unión.",
   },
   "/locations": {
     title: "Ubicaciones | Tripletas La Unión",
     description: "Encuentra Tripletas La Unión en Caguas, Av. Piñero y 65 de Infantería.",
+  },
+  "/privacy": {
+    title: "Políticas de Privacidad | Tripletas La Unión",
+    description: "Conoce cómo Tripletas La Unión maneja la privacidad de visitantes y clientes del sitio web.",
+  },
+  "/privacy-policy": {
+    title: "Políticas de Privacidad | Tripletas La Unión",
+    description: "Conoce cómo Tripletas La Unión maneja la privacidad de visitantes y clientes del sitio web.",
+  },
+  "/terms": {
+    title: "Términos de Uso | Tripletas La Unión",
+    description: "Consulta los términos de uso del sitio web de Tripletas La Unión.",
+  },
+  "/terms-of-use": {
+    title: "Términos de Uso | Tripletas La Unión",
+    description: "Consulta los términos de uso del sitio web de Tripletas La Unión.",
   },
 };
 
@@ -118,6 +136,8 @@ export function App() {
   const page = useMemo(() => {
     if (path === "/menu") return <MenuPage onOrder={() => setOrderModalOpen(true)} />;
     if (path === "/locations") return <LocationsPage />;
+    if (path === "/privacy" || path === "/privacy-policy") return <PrivacyPolicyPage />;
+    if (path === "/terms" || path === "/terms-of-use") return <TermsOfUsePage />;
     const detail = locations.find((location) => path === `/locations/${location.id}`);
     if (detail) return <LocationDetailPage location={detail} onOrder={() => setOrderModalOpen(true)} />;
     return <HomePage onOrder={() => setOrderModalOpen(true)} />;
@@ -272,7 +292,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
             Ver el menú
           </Link>
         </div>
-        <div className="feature-panel">
+        <div className="feature-panel" style={{ "--feature-image": `url("${assetUrl("/images/menu/Hechas al momento.png")}")` } as React.CSSProperties}>
           <span>Tripletas</span>
           <strong>hechas al momento</strong>
         </div>
@@ -325,21 +345,24 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         <div>
           <p className="eyebrow">Social</p>
           <h2>Mira lo que se está cocinando.</h2>
-          <p>Galería controlada con fotos aprobadas por el negocio. Las imágenes actuales son temporales y reemplazables.</p>
           <div className="button-row">
             <a className="secondary-cta" href={socials.caguasInstagram.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { account: socials.caguasInstagram.label })}>
-              Instagram Caguas
+              <img className="instagram-logo" src={assetUrl("/images/branding/instagram.svg")} alt="" aria-hidden="true" />
+              <span className="sr-only">Instagram </span>
+              Caguas
             </a>
             <a className="secondary-cta" href={socials.metroInstagram.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { account: socials.metroInstagram.label })}>
-              Instagram Metro
+              <img className="instagram-logo" src={assetUrl("/images/branding/instagram.svg")} alt="" aria-hidden="true" />
+              <span className="sr-only">Instagram </span>
+              Metro
             </a>
           </div>
         </div>
-        <div className="gallery-grid" aria-label="Espacios reservados para fotografía aprobada" style={{ "--gallery-image": `url("${assetUrl("/images/gallery/gallery-placeholder.svg")}")` } as React.CSSProperties}>
-          <span>Tripleta</span>
-          <span>Papas locas</span>
-          <span>Churrasco</span>
-          <span>Wrap</span>
+        <div className="gallery-grid" aria-label="Fotos destacadas del menú">
+          <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Tripleta2.png")}")` } as React.CSSProperties}>Tripleta</span>
+          <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Papas-locas-de-tripleta.png")}")` } as React.CSSProperties}>Papas locas</span>
+          <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Churrasco.png")}")` } as React.CSSProperties}>Churrasco</span>
+          <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Wrap.png")}")` } as React.CSSProperties}>Wrap</span>
         </div>
       </section>
 
@@ -352,11 +375,8 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
             generosas, preparación al momento, combinaciones a tu gusto y servicio rápido para la ruta, la salida o la noche.
           </p>
         </div>
-        <div className="about-list">
-          <span>Made to order</span>
-          <span>Porciones generosas</span>
-          <span>Servicio nocturno</span>
-          <span>Sabor local</span>
+        <div className="about-logo-panel">
+          <img src={assetUrl("/images/branding/Logo.png")} alt="Tripletas La Unión" />
         </div>
       </section>
 
@@ -377,19 +397,20 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
 }
 
 function MenuPage({ onOrder }: { onOrder: () => void }) {
-  const [activeCategory, setActiveCategory] = useState<MenuCategory>("tripletas");
+  const [activeCategory, setActiveCategory] = useState<MenuCategory | "todos">("todos");
+  const categoryFilters = [{ id: "todos" as const, label: "Todos" }, ...menuCategories];
   const activeItems = menuItems
-    .filter((item) => item.active && item.category === activeCategory)
+    .filter((item) => item.active && (activeCategory === "todos" || item.category === activeCategory))
     .sort((a, b) => a.sortOrder - b.sortOrder);
 
   useEffect(() => trackEvent("menu_view"), []);
 
   return (
     <main className="page">
-      <PageHero eyebrow="Menú" title="Tripletas, sándwiches y papas que resuelven." copy="Los precios oficiales están pendientes de confirmar con el dueño. Donde falte precio, verás Consulta precio." />
+      <PageHero eyebrow="Menú" title="Tripletas, sándwiches y papas que resuelven." copy="Explora los favoritos y llama a la ubicación que prefieras para ordenar directo." />
       <section className="section">
         <div className="category-tabs" role="tablist" aria-label="Categorías del menú">
-          {menuCategories.map((category) => (
+          {categoryFilters.map((category) => (
             <button
               key={category.id}
               className={activeCategory === category.id ? "is-active" : ""}
@@ -402,12 +423,12 @@ function MenuPage({ onOrder }: { onOrder: () => void }) {
           ))}
         </div>
         <div className="menu-grid menu-page-grid">
-          {activeItems.length > 0 ? activeItems.map((item) => <MenuCard key={item.id} item={item} showAvailability />) : <p>Esta categoría está lista para recibir productos oficiales.</p>}
+          {activeItems.length > 0 ? activeItems.map((item) => <MenuCard key={item.id} item={item} showAvailability />) : <p>¡Llama y pídela como tú la quieras!</p>}
         </div>
         <div className="callout">
           <div>
             <h2>Llama para ordenar</h2>
-            <p>Escoge la ubicación y llama directo. No hay checkout falso ni pedidos simulados.</p>
+            <p>Escoge la ubicación y llama directo.</p>
           </div>
           <button className="primary-cta" onClick={onOrder}>
             Elegir ubicación
@@ -424,6 +445,200 @@ function LocationsPage() {
       <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Caguas, Av. Piñero y 65 de Infantería." />
       <section className="section">
         <MapPanel />
+      </section>
+    </main>
+  );
+}
+
+function PrivacyPolicyPage() {
+  return (
+    <main className="page">
+      <PageHero
+        eyebrow="Legal"
+        title="Políticas de Privacidad"
+        copy="Última actualización: 1 de septiembre de 2026"
+      />
+      <section className="section policy-page" aria-label="Política de Privacidad">
+        <p>
+          En <strong>Tripletas La Unión</strong>, respetamos la privacidad de nuestros clientes y visitantes. Esta
+          Política de Privacidad explica de manera general qué información puede recopilarse cuando visitas nuestro
+          sitio web y cómo puede utilizarse.
+        </p>
+
+        <h2>1. Información que podemos recopilar</h2>
+        <p>
+          Podemos recopilar información que tú nos proporciones voluntariamente, incluyendo tu nombre, número de
+          teléfono, correo electrónico o cualquier otra información enviada mediante formularios de contacto, mensajes o
+          solicitudes realizadas a través del sitio.
+        </p>
+        <p>
+          También podemos recopilar automáticamente cierta información técnica, como tipo de navegador, dispositivo
+          utilizado, páginas visitadas, tiempo de navegación y dirección IP, cuando estas funciones estén habilitadas
+          mediante herramientas de análisis.
+        </p>
+
+        <h2>2. Cómo utilizamos la información</h2>
+        <p>La información recopilada puede utilizarse para:</p>
+        <ul>
+          <li>Responder preguntas o solicitudes.</li>
+          <li>Proporcionar información sobre nuestros productos, menú, horarios o servicios.</li>
+          <li>Mejorar la funcionalidad y experiencia del sitio web.</li>
+          <li>Analizar de manera general cómo los visitantes utilizan nuestra página.</li>
+          <li>Mantener la seguridad y funcionamiento del sitio.</li>
+        </ul>
+        <p>No vendemos ni alquilamos información personal de nuestros usuarios.</p>
+
+        <h2>3. Cookies y tecnologías similares</h2>
+        <p>
+          Nuestro sitio puede utilizar cookies u otras tecnologías similares para facilitar su funcionamiento, analizar
+          tráfico o mejorar la experiencia del visitante.
+        </p>
+        <p>
+          Algunos servicios de terceros integrados en el sitio también pueden utilizar sus propias cookies de acuerdo
+          con sus respectivas políticas de privacidad.
+        </p>
+
+        <h2>4. Servicios de terceros</h2>
+        <p>
+          Nuestro sitio puede contener enlaces o integraciones con servicios externos, incluyendo plataformas como Google
+          Maps, Facebook, Instagram u otros servicios de terceros.
+        </p>
+        <p>
+          Tripletas La Unión no controla las prácticas de privacidad de estos servicios externos. Recomendamos revisar
+          las políticas de privacidad correspondientes antes de proporcionar información personal en dichas plataformas.
+        </p>
+
+        <h2>5. Seguridad de la información</h2>
+        <p>
+          Tomamos medidas razonables para proteger la información proporcionada a través del sitio. Sin embargo, ningún
+          sistema de transmisión o almacenamiento de datos por Internet puede garantizar seguridad absoluta.
+        </p>
+
+        <h2>6. Privacidad de menores</h2>
+        <p>Este sitio no está diseñado para recopilar intencionalmente información personal de menores de edad.</p>
+
+        <h2>7. Cambios a esta política</h2>
+        <p>
+          Podemos actualizar esta Política de Privacidad ocasionalmente. Cualquier modificación será publicada en esta
+          misma página junto con la fecha de actualización correspondiente.
+        </p>
+
+        <h2>8. Contacto</h2>
+        <p>Si tienes preguntas sobre esta Política de Privacidad, puedes comunicarte con:</p>
+        <address>
+          <strong>Tripletas La Unión</strong>
+          <span>Caguas: 787-509-3730</span>
+          <span>Av. Piñero: 787-630-3884</span>
+          <span>65 de Infantería: 787-634-6771</span>
+          <span>Correo electrónico: No publicado en este momento.</span>
+        </address>
+      </section>
+    </main>
+  );
+}
+
+function TermsOfUsePage() {
+  return (
+    <main className="page">
+      <PageHero eyebrow="Legal" title="Términos de Uso" copy="Última actualización: 1 de septiembre de 2026" />
+      <section className="section policy-page" aria-label="Términos de Uso">
+        <p>
+          Bienvenido al sitio web de <strong>Tripletas La Unión</strong>. Al acceder o utilizar este sitio, aceptas los
+          siguientes Términos de Uso.
+        </p>
+
+        <h2>1. Propósito del sitio web</h2>
+        <p>
+          Este sitio tiene como propósito proporcionar información relacionada con Tripletas La Unión, incluyendo
+          productos, menú, horarios, ubicación, promociones, información de contacto y otros datos relacionados con el
+          negocio.
+        </p>
+
+        <h2>2. Información del menú</h2>
+        <p>
+          Hacemos todo lo posible por mantener la información del sitio actualizada. Sin embargo, los productos,
+          ingredientes, promociones, disponibilidad y horarios pueden cambiar sin previo aviso.
+        </p>
+        <p>
+          En caso de existir alguna diferencia entre la información publicada en el sitio web y la información
+          proporcionada directamente en el establecimiento, prevalecerá la información disponible en el establecimiento.
+        </p>
+
+        <h2>3. Fotografías de productos</h2>
+        <p>
+          Las fotografías utilizadas en el sitio tienen fines ilustrativos. La apariencia, tamaño, presentación o
+          ingredientes de los productos pueden variar ligeramente.
+        </p>
+
+        <h2>4. Disponibilidad de productos</h2>
+        <p>Algunos productos pueden estar sujetos a disponibilidad y pueden agotarse o modificarse sin previo aviso.</p>
+
+        <h2>5. Alergias e ingredientes</h2>
+        <p>
+          Los clientes con alergias o restricciones alimentarias deben informarlo directamente al personal antes de
+          realizar un pedido.
+        </p>
+        <p>
+          Aunque tomamos precauciones razonables durante la preparación de alimentos, no podemos garantizar que los
+          productos estén completamente libres de contacto con ingredientes o alérgenos utilizados dentro de nuestras
+          instalaciones.
+        </p>
+
+        <h2>6. Propiedad intelectual</h2>
+        <p>
+          El contenido de este sitio, incluyendo fotografías, logotipos, nombres comerciales, diseños, textos, gráficos
+          y otros materiales relacionados con Tripletas La Unión, pertenece a sus respectivos propietarios y está
+          protegido por las leyes aplicables.
+        </p>
+        <p>No se permite copiar, reproducir, distribuir o utilizar este contenido con fines comerciales sin autorización previa.</p>
+
+        <h2>7. Enlaces externos</h2>
+        <p>El sitio puede incluir enlaces a páginas o servicios de terceros.</p>
+        <p>
+          Tripletas La Unión no controla ni se responsabiliza por el contenido, disponibilidad, políticas o prácticas de
+          esos sitios externos.
+        </p>
+
+        <h2>8. Uso apropiado del sitio</h2>
+        <p>El usuario acepta no utilizar este sitio para:</p>
+        <ul>
+          <li>Intentar obtener acceso no autorizado a sistemas o servidores.</li>
+          <li>Introducir código malicioso, virus u otros elementos dañinos.</li>
+          <li>Interferir con el funcionamiento normal del sitio.</li>
+          <li>Utilizar el contenido del sitio de forma fraudulenta o ilegal.</li>
+        </ul>
+
+        <h2>9. Limitación de responsabilidad</h2>
+        <p>
+          Tripletas La Unión procura mantener la información de este sitio correcta y disponible. Sin embargo, no
+          garantiza que el sitio permanezca libre de errores, interrupciones o información desactualizada en todo
+          momento.
+        </p>
+        <p>
+          Dentro de lo permitido por la ley, Tripletas La Unión no será responsable por daños derivados exclusivamente
+          del uso o imposibilidad de uso del sitio web.
+        </p>
+
+        <h2>10. Cambios al sitio o a estos términos</h2>
+        <p>Podemos modificar el contenido del sitio o estos Términos de Uso en cualquier momento.</p>
+        <p>Los cambios entrarán en vigor desde el momento en que sean publicados en esta página.</p>
+
+        <h2>11. Ley aplicable</h2>
+        <p>
+          Estos Términos de Uso se interpretarán de acuerdo con las leyes aplicables del{" "}
+          <strong>Estado Libre Asociado de Puerto Rico y las leyes federales de los Estados Unidos</strong>, según
+          corresponda.
+        </p>
+
+        <h2>12. Contacto</h2>
+        <p>Para preguntas relacionadas con estos Términos de Uso:</p>
+        <address>
+          <strong>Tripletas La Unión</strong>
+          <span>Caguas: 787-509-3730</span>
+          <span>Av. Piñero: 787-630-3884</span>
+          <span>65 de Infantería: 787-634-6771</span>
+          <span>Correo electrónico: No publicado en este momento.</span>
+        </address>
       </section>
     </main>
   );
@@ -455,7 +670,7 @@ function LocationDetailPage({ location, onOrder }: { location: Location; onOrder
         <aside className="detail-aside">
           <h3>Horario completo</h3>
           <HoursList location={location} />
-          <h3>Pagos verificados</h3>
+          <h3>Métodos de pago</h3>
           <PaymentList location={location} />
           <h3>Social</h3>
           <SocialLinks location={location} />
@@ -482,7 +697,6 @@ function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvai
       <div>
         <div className="card-topline">
           <h3>{item.name}</h3>
-          <strong>{item.price == null ? "Consulta precio" : `$${item.price.toFixed(2)}`}</strong>
         </div>
         <p>{item.description}</p>
         <div className="badge-row">
@@ -653,16 +867,20 @@ function Footer() {
         </nav>
       </div>
       <div className="legal-row">
-        <span>Privacy Policy</span>
-        <span>Términos</span>
-        {business.featureFlags.developerCredit ? (
-          <span>
-            Built by{" "}
-            <a href="https://firstlinedev.com" target="_blank" rel="noreferrer">
-              FirstLine Development
-            </a>
-          </span>
-        ) : null}
+        <div className="footer-credit">
+          {business.featureFlags.developerCredit ? (
+            <span>
+              Built by{" "}
+              <a href="https://firstlinedev.com" target="_blank" rel="noreferrer">
+                FirstLine Development
+              </a>
+            </span>
+          ) : null}
+        </div>
+        <div className="footer-legal-links">
+          <Link href="/privacy">Políticas de Privacidad</Link>
+          <Link href="/terms">Términos de Uso</Link>
+        </div>
       </div>
     </footer>
   );

@@ -171,10 +171,18 @@ p {
 }
 
 .secondary-cta {
+  gap: 9px;
   padding: 12px 18px;
   border: 1px solid rgba(255, 248, 232, 0.35);
   color: var(--union-cream);
   background: rgba(255, 248, 232, 0.05);
+}
+
+.instagram-logo {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: block;
 }
 
 .text-link {
@@ -266,7 +274,7 @@ p {
 }
 
 .feature-panel,
-.about-list,
+.about-logo-panel,
 .gallery-grid,
 .map-canvas {
   border: 1px solid rgba(255, 248, 232, 0.18);
@@ -282,6 +290,13 @@ p {
   flex-direction: column;
   justify-content: end;
   border-radius: 8px;
+  background-image:
+    linear-gradient(180deg, rgba(17, 17, 17, 0.05), rgba(17, 17, 17, 0.82)),
+    linear-gradient(135deg, rgba(217, 50, 38, 0.22), transparent 52%),
+    var(--feature-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .feature-panel span {
@@ -352,6 +367,7 @@ p {
 
 .menu-card p {
   margin: 12px 0;
+  white-space: pre-line;
 }
 
 .badge-row,
@@ -483,6 +499,20 @@ p {
   align-items: center;
 }
 
+.about-logo-panel {
+  min-height: 276px;
+  display: grid;
+  place-items: center;
+  padding: 34px;
+  border-radius: 8px;
+}
+
+.about-logo-panel img {
+  width: min(100%, 585px);
+  height: auto;
+  display: block;
+}
+
 .gallery-grid,
 .about-list {
   display: grid;
@@ -583,6 +613,44 @@ p {
 
 .detail-main p {
   margin: 14px 0 22px;
+}
+
+.policy-page {
+  max-width: 860px;
+}
+
+.policy-page h2 {
+  margin-top: 30px;
+  font-family: Inter, Manrope, "Segoe UI", Arial, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+.policy-page p,
+.policy-page li,
+.policy-page address {
+  color: rgba(255, 248, 232, 0.84);
+}
+
+.policy-page p + p {
+  margin-top: 14px;
+}
+
+.policy-page ul {
+  margin: 14px 0 0;
+  padding-left: 20px;
+}
+
+.policy-page address {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  font-style: normal;
+}
+
+.policy-page address strong {
+  color: var(--union-cream);
 }
 
 .hours-list div {
@@ -728,11 +796,24 @@ p {
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
   padding-top: 12px;
   border-top: 1px solid rgba(255, 248, 232, 0.1);
   color: var(--union-gray);
   font-size: 0.9rem;
+}
+
+.footer-credit,
+.footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.footer-legal-links {
+  justify-content: flex-end;
 }
 
 .legal-row a {
@@ -768,6 +849,11 @@ p {
   .location-detail,
   .site-footer {
     grid-template-columns: 1fr;
+  }
+
+  .legal-row,
+  .footer-legal-links {
+    justify-content: flex-start;
   }
 
   .menu-grid {
@@ -837,6 +923,11 @@ p {
   .gallery-grid,
   .about-list {
     grid-template-columns: 1fr;
+  }
+
+  .about-logo-panel {
+    min-height: 220px;
+    padding: 24px;
   }
 
   .button-row > * {
