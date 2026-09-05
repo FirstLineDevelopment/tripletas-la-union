@@ -945,6 +945,10 @@ p {
     display: none;
   }
 
+  .site-footer {
+    padding-bottom: 124px;
+  }
+
   .mobile-action-bar {
     position: fixed;
     left: 10px;
