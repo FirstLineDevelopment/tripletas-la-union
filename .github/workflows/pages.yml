@@ -32,6 +32,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          VITE_COMING_SOON: "true"
         run: npm run build -- --base=/tripletas-la-union/
 
       - name: Add SPA fallback

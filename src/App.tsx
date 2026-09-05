@@ -17,6 +17,7 @@ const routes = {
 };
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const isComingSoonBuild = import.meta.env.VITE_COMING_SOON === "true";
 
 const withBasePath = (href: string) => {
   if (!href.startsWith("/")) return href;
@@ -101,6 +102,36 @@ const Link = ({ href, children, className, onClick }: { href: string; children: 
 );
 
 export function App() {
+  if (isComingSoonBuild) return <ComingSoonPage />;
+  return <FullSiteApp />;
+}
+
+function ComingSoonPage() {
+  useEffect(() => {
+    const title = "Tripletas La Unión | Próximamente";
+    const description = "El sitio oficial de Tripletas La Unión estará disponible pronto.";
+
+    document.title = title;
+    document.querySelector("meta[name='description']")?.setAttribute("content", description);
+    document.querySelector("meta[property='og:title']")?.setAttribute("content", title);
+    document.querySelector("meta[property='og:description']")?.setAttribute("content", description);
+    document.querySelector("meta[name='twitter:title']")?.setAttribute("content", title);
+    document.querySelector("meta[name='twitter:description']")?.setAttribute("content", description);
+  }, []);
+
+  return (
+    <main className="coming-soon-page">
+      <section className="coming-soon-card" aria-labelledby="coming-soon-title">
+        <img src={assetUrl("/images/branding/Logo.png")} alt="Tripletas La Unión" />
+        <p className="eyebrow">Próximamente</p>
+        <h1 id="coming-soon-title">Estamos preparando algo bueno.</h1>
+        <p>El sitio oficial estará disponible pronto. Vuelve el lunes para ver el menú, horarios y ubicaciones.</p>
+      </section>
+    </main>
+  );
+}
+
+function FullSiteApp() {
   const [path, setPath] = useState(getPath);
   const [menuOpen, setMenuOpen] = useState(false);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
