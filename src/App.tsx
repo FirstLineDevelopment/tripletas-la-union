@@ -68,7 +68,8 @@ const scrollToHashTarget = (hash: string) => {
   const target = document.getElementById(decodeURIComponent(hash.replace(/^#/, "")));
   if (!target) return;
 
-  const top = target.getBoundingClientRect().top + window.scrollY - getStickyHeaderHeight() - 50;
+  const extraOffset = window.matchMedia("(max-width: 640px)").matches ? 0 : 50;
+  const top = target.getBoundingClientRect().top + window.scrollY - getStickyHeaderHeight() - extraOffset;
   window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
 };
 

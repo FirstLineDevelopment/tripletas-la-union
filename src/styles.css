@@ -962,6 +962,10 @@ p {
     width: min(100% - 28px, var(--max-width));
   }
 
+  .page-hero {
+    padding-top: 38px;
+  }
+
   .section {
     padding: 58px 0;
   }
