@@ -963,11 +963,15 @@ p {
   }
 
   .page-hero {
-    padding-top: 38px;
+    padding-top: 0;
   }
 
   .section {
     padding: 58px 0;
+  }
+
+  .page > .section {
+    padding-top: 12px;
   }
 
   .hero + .section {

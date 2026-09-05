@@ -68,8 +68,11 @@ const scrollToHashTarget = (hash: string) => {
   const target = document.getElementById(decodeURIComponent(hash.replace(/^#/, "")));
   if (!target) return;
 
-  const extraOffset = window.matchMedia("(max-width: 640px)").matches ? 0 : 50;
-  const top = target.getBoundingClientRect().top + window.scrollY - getStickyHeaderHeight() - extraOffset;
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
+  const mobileSectionPadding = isMobile ? parseFloat(window.getComputedStyle(target).paddingTop) || 0 : 0;
+  const desktopOffset = isMobile ? 0 : 50;
+  const mobileRaise = isMobile ? 50 : 0;
+  const top = target.getBoundingClientRect().top + window.scrollY + mobileSectionPadding + mobileRaise - getStickyHeaderHeight() - desktopOffset;
   window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
 };
 
