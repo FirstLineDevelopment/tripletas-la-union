@@ -6,7 +6,7 @@ export const business = {
   brandNameUnaccented: "Tripletas La Union",
   tagline: "Tripletas que rompen.",
   seoDescription:
-    "Tripletas, churrasco, pastrami, wraps y papas locas en Caguas, Av. Piñero y 65 de Infantería.",
+    "Tripletas, churrasco, pastrami, wraps y papas locas en Av. Piñero y 65 de Infantería.",
   email: null as string | null,
   socialLinks: socials,
   locations,

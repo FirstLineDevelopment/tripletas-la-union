@@ -23,27 +23,6 @@ const paymentMethods = (verifiedIds: PaymentMethod["id"][]): PaymentMethod[] =>
 
 export const locations: Location[] = [
   {
-    id: "caguas",
-    shortName: "Caguas",
-    name: "Tripletas La Unión - Caguas",
-    addressLines: ["PR-189", "Caguas, Puerto Rico 00725"],
-    description:
-      "Carretera 189, en el área entre la gasolinera Toral/To Go y KFC, cerca de la entrada hacia Cementerio Monte Calvario.",
-    phone: "787-509-3730",
-    telUri: "tel:+17875093730",
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Tripletas%20La%20Union%20Caguas%20PR-189",
-    wazeUrl: "https://waze.com/ul?q=Tripletas%20La%20Union%20Caguas%20PR-189&navigate=yes",
-    coordinates: { lat: 18.2387, lng: -66.0338 },
-    hours: standardHours,
-    characteristics: ["Takeout", "Asientos al aire libre", "Servicio nocturno"],
-    paymentMethods: paymentMethods(["cash", "athMovil"]),
-    socials: {
-      instagram: socials.caguasInstagram.url,
-      facebook: socials.caguasFacebook.url,
-    },
-    image: "/images/locations/Caguas.PNG",
-  },
-  {
     id: "pinero",
     shortName: "Av. Piñero",
     name: "Tripletas La Unión - Piñero",

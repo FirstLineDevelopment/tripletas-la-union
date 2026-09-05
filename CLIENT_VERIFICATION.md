@@ -2,7 +2,7 @@
 
 These business details need owner confirmation before publishing as final facts.
 
-1. Confirm whether Caguas, Piñero, and 65 de Infantería are operated under the same business or ownership and should appear on one website.
+1. Confirm whether Piñero and 65 de Infantería are operated under the same business or ownership and should appear on one website.
 2. Confirm exact legal/brand spelling: `Tripletas La Unión` or `Tripletas La Union`.
 3. Obtain official logo files.
 4. Obtain official brand colors, if they exist.

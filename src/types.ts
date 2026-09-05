@@ -13,7 +13,7 @@ export type PaymentMethod = {
 };
 
 export type Location = {
-  id: "caguas" | "pinero" | "65-infanteria";
+  id: "pinero" | "65-infanteria";
   shortName: string;
   name: string;
   addressLines: string[];

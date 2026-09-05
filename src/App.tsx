@@ -35,7 +35,7 @@ const routeMeta: Record<string, { title: string; description: string }> = {
   },
   "/locations": {
     title: "Ubicaciones | Tripletas La Unión",
-    description: "Encuentra Tripletas La Unión en Caguas, Av. Piñero y 65 de Infantería.",
+    description: "Encuentra Tripletas La Unión en Av. Piñero y 65 de Infantería.",
   },
   "/privacy": {
     title: "Políticas de Privacidad | Tripletas La Unión",
@@ -266,7 +266,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
     <main>
       <section className="hero" style={{ "--hero-image": `url("${assetUrl("/images/hero/tripleta-hero.png")}")` } as React.CSSProperties}>
         <div className="hero-content">
-          <p className="eyebrow">3 ubicaciones en Puerto Rico</p>
+          <p className="eyebrow">2 ubicaciones en Puerto Rico</p>
           <h1>El hambre no espera.</h1>
           <p className="hero-copy">Tripletas, churrasco, pastrami y más. Sabor boricua hecho pa' esa hambre de verdad.</p>
           <div className="button-row">
@@ -346,11 +346,6 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
           <p className="eyebrow">Social</p>
           <h2>Mira lo que se está cocinando.</h2>
           <div className="button-row">
-            <a className="secondary-cta" href={socials.caguasInstagram.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { account: socials.caguasInstagram.label })}>
-              <img className="instagram-logo" src={assetUrl("/images/branding/instagram.svg")} alt="" aria-hidden="true" />
-              <span className="sr-only">Instagram </span>
-              Caguas
-            </a>
             <a className="secondary-cta" href={socials.metroInstagram.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { account: socials.metroInstagram.label })}>
               <img className="instagram-logo" src={assetUrl("/images/branding/instagram.svg")} alt="" aria-hidden="true" />
               <span className="sr-only">Instagram </span>
@@ -442,7 +437,7 @@ function MenuPage({ onOrder }: { onOrder: () => void }) {
 function LocationsPage() {
   return (
     <main className="page">
-      <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Caguas, Av. Piñero y 65 de Infantería." />
+      <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Av. Piñero y 65 de Infantería." />
       <section className="section">
         <MapPanel />
       </section>
@@ -527,7 +522,6 @@ function PrivacyPolicyPage() {
         <p>Si tienes preguntas sobre esta Política de Privacidad, puedes comunicarte con:</p>
         <address>
           <strong>Tripletas La Unión</strong>
-          <span>Caguas: 787-509-3730</span>
           <span>Av. Piñero: 787-630-3884</span>
           <span>65 de Infantería: 787-634-6771</span>
           <span>Correo electrónico: No publicado en este momento.</span>
@@ -634,7 +628,6 @@ function TermsOfUsePage() {
         <p>Para preguntas relacionadas con estos Términos de Uso:</p>
         <address>
           <strong>Tripletas La Unión</strong>
-          <span>Caguas: 787-509-3730</span>
           <span>Av. Piñero: 787-630-3884</span>
           <span>65 de Infantería: 787-634-6771</span>
           <span>Correo electrónico: No publicado en este momento.</span>
@@ -842,7 +835,7 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-brand">
         <h2>Tripletas La Unión</h2>
-        <p>Tripletas que rompen. Tres ubicaciones en Puerto Rico.</p>
+        <p>Tripletas que rompen. Dos ubicaciones en Puerto Rico.</p>
       </div>
       <div className="footer-groups">
         <nav className="footer-group" aria-label="Navegación del footer">
@@ -850,9 +843,6 @@ function Footer() {
           <Link href="/">Inicio</Link>
           <Link href="/menu">Menú</Link>
           <Link href="/locations">Ubicaciones</Link>
-          <a href={socials.caguasInstagram.url} target="_blank" rel="noreferrer">
-            Instagram Caguas
-          </a>
           <a href={socials.metroInstagram.url} target="_blank" rel="noreferrer">
             Instagram Metro
           </a>

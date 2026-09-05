@@ -13,21 +13,20 @@ Current site imagery is temporary and must be replaced with owner-approved asset
 ## Owner-provided assets needed
 
 1. Official logo.
-2. Food truck/storefront for Caguas.
-3. Storefront or stand for Piñero.
-4. Storefront or stand for 65 de Infantería.
-5. Signature tripleta.
-6. Opened or cut tripleta showing filling.
-7. Churrasco sandwich.
-8. Pastrami sandwich.
-9. Pollo sandwich.
-10. Tripleta-Churrasco / Cuarteta.
-11. Tripleta wrap.
-12. Tripleta al plato.
-13. Papas locas.
-14. Grill or preparation imagery.
-15. Customers or order window.
-16. Night-time location shots.
+2. Storefront or stand for Piñero.
+3. Storefront or stand for 65 de Infantería.
+4. Signature tripleta.
+5. Opened or cut tripleta showing filling.
+6. Churrasco sandwich.
+7. Pastrami sandwich.
+8. Pollo sandwich.
+9. Tripleta-Churrasco / Cuarteta.
+10. Tripleta wrap.
+11. Tripleta al plato.
+12. Papas locas.
+13. Grill or preparation imagery.
+14. Customers or order window.
+15. Night-time location shots.
 
 ## Replacement guidance
 
