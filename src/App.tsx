@@ -125,7 +125,7 @@ function ComingSoonPage() {
         <img src={assetUrl("/images/branding/Logo.png")} alt="Tripletas La Unión" />
         <p className="eyebrow">Próximamente</p>
         <h1 id="coming-soon-title">Estamos preparando algo bueno.</h1>
-        <p>El sitio oficial estará disponible pronto. Vuelve el lunes para ver el menú, horarios y ubicaciones.</p>
+        <p>El sitio oficial estará disponible pronto.</p>
       </section>
     </main>
   );
