@@ -71,7 +71,7 @@ const scrollToHashTarget = (hash: string) => {
   const isMobile = window.matchMedia("(max-width: 640px)").matches;
   const mobileSectionPadding = isMobile ? parseFloat(window.getComputedStyle(target).paddingTop) || 0 : 0;
   const desktopOffset = isMobile ? 0 : 50;
-  const mobileBreathingRoom = isMobile ? 12 : 0;
+  const mobileBreathingRoom = isMobile ? -17 : 0;
   const top = target.getBoundingClientRect().top + window.scrollY + mobileSectionPadding - getStickyHeaderHeight() - desktopOffset - mobileBreathingRoom;
   window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
 };
