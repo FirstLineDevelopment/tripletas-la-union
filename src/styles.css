@@ -110,6 +110,7 @@ p {
 .coming-soon-card img {
   width: min(100%, 520px);
   height: auto;
+  transform: translateX(-3.5%);
 }
 
 .coming-soon-card h1 {
