@@ -897,6 +897,29 @@ p {
 }
 
 @media (max-width: 640px) {
+  .coming-soon-page {
+    min-height: 100svh;
+    padding: clamp(16px, 4svh, 24px) 18px;
+  }
+
+  .coming-soon-card {
+    gap: clamp(10px, 2.4svh, 16px);
+  }
+
+  .coming-soon-card img {
+    width: min(76vw, 300px);
+  }
+
+  .coming-soon-card h1 {
+    max-width: 340px;
+    font-size: clamp(2.35rem, 11vw, 3.25rem);
+  }
+
+  .coming-soon-card p:not(.eyebrow) {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
   .hero {
     min-height: calc(100svh - 76px);
     align-items: center;
