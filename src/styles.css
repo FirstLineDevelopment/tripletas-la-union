@@ -1012,7 +1012,39 @@ p {
   }
 
   .site-footer {
+    padding-top: 16px;
     padding-bottom: 72px;
+    gap: 14px;
+  }
+
+  .footer-brand p {
+    margin-top: 0;
+  }
+
+  .footer-groups {
+    gap: 20px;
+  }
+
+  .footer-group {
+    gap: 0;
+  }
+
+  .footer-group > span {
+    margin-bottom: 2px;
+  }
+
+  .footer-group a {
+    min-height: 26px;
+  }
+
+  .legal-row {
+    gap: 8px 18px;
+    padding-top: 8px;
+  }
+
+  .footer-credit,
+  .footer-legal-links {
+    gap: 10px 14px;
   }
 
   .mobile-action-bar {
