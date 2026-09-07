@@ -55,7 +55,7 @@ export const menuItems: MenuItem[] = [
     badges: ["A tu gusto"],
     availableLocations: ["pinero", "65-infanteria"],
     featured: false,
-    active: true,
+    active: false,
     sortOrder: 5,
   },
   {
@@ -79,7 +79,7 @@ export const menuItems: MenuItem[] = [
     badges: [],
     availableLocations: ["pinero", "65-infanteria"],
     featured: false,
-    active: true,
+    active: false,
     sortOrder: 7,
   },
   {
