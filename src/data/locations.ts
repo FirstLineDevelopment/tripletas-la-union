@@ -38,7 +38,7 @@ export const locations: Location[] = [
     socials: {
       instagram: socials.metroInstagram.url,
     },
-    image: "/images/locations/Piñeiro.PNG",
+    image: "/images/locations/pinero-menu-2026-09-07.jpg",
   },
   {
     id: "65-infanteria",
