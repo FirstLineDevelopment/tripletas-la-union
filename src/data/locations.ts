@@ -56,7 +56,7 @@ export const locations: Location[] = [
     socials: {
       instagram: socials.metroInstagram.url,
     },
-    image: "/images/locations/65deInfanteria.PNG",
+    image: "/images/locations/65-infanteria-menu-2026-09-07.jpg",
   },
 ];
 
