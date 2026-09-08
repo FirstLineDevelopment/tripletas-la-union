@@ -179,6 +179,28 @@ function FullSiteApp() {
     return <HomePage onOrder={() => setOrderModalOpen(true)} />;
   }, [path]);
 
+  useEffect(() => {
+    const revealItems = Array.from(document.querySelectorAll<HTMLElement>(".reveal-on-scroll"));
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.18 }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, [path]);
 
   return (
     <>
@@ -311,7 +333,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         </div>
       </section>
 
-      <section className="section split-section">
+      <section className="section split-section reveal-on-scroll">
         <div>
           <p className="eyebrow">La firma</p>
           <h2>Tres carnes. Un clásico.</h2>
@@ -326,13 +348,13 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         </div>
       </section>
 
-      <section className="section late-night">
+      <section className="section late-night reveal-on-scroll">
         <p className="eyebrow">Late night</p>
         <h2>Del jangueo pa' La Unión.</h2>
         <p>Cuando la noche sigue, la comida también. Llama directo y llega listo.</p>
       </section>
 
-      <section className="section split-section" id="nosotros">
+      <section className="section split-section reveal-on-scroll" id="nosotros">
         <div>
           <p className="eyebrow">Nosotros</p>
           <h2>Comida que resuelve.</h2>
@@ -346,7 +368,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         </div>
       </section>
 
-      <section className="section gallery" id="galeria">
+      <section className="section gallery reveal-on-scroll" id="galeria">
         <div>
           <p className="eyebrow">Social</p>
           <h2>Mira lo que se está cocinando.</h2>
@@ -366,7 +388,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         </div>
       </section>
 
-      <section className="final-cta">
+      <section className="final-cta reveal-on-scroll">
         <h2>¿Con hambre?</h2>
         <p>Llama directo y pide la tuya.</p>
         <div className="button-row">
@@ -406,7 +428,7 @@ function MenuPage({ onOrder }: { onOrder: () => void }) {
           ))}
         </div>
         <div className="menu-grid menu-page-grid">
-          {activeItems.length > 0 ? activeItems.map((item) => <MenuCard key={item.id} item={item} showAvailability />) : <p>¡Llama y pídela como tú la quieras!</p>}
+          {activeItems.length > 0 ? activeItems.map((item, index) => <MenuCard key={item.id} item={item} showAvailability revealIndex={index} />) : <p>¡Llama y pídela como tú la quieras!</p>}
         </div>
         <div className="callout">
           <div>
@@ -632,7 +654,7 @@ function LocationDetailPage({ location, onOrder }: { location: Location; onOrder
     <main className="page">
       <PageHero eyebrow="Ubicación" title={location.shortName} copy={`${location.addressLines.join(", ")}. ${state.label}: ${state.todayLabel}.`} />
       <section className="section location-detail">
-        <div className="detail-main">
+        <div className="detail-main reveal-on-scroll">
           <img src={assetUrl(location.image)} alt={`Imagen temporal para ${location.name}`} />
           <h2>{location.name}</h2>
           {location.description ? <p>{location.description}</p> : null}
@@ -648,7 +670,7 @@ function LocationDetailPage({ location, onOrder }: { location: Location; onOrder
             </button>
           </div>
         </div>
-        <aside className="detail-aside">
+        <aside className="detail-aside reveal-on-scroll">
           <h3>Horario completo</h3>
           <HoursList location={location} />
           <h3>Métodos de pago</h3>
@@ -671,9 +693,9 @@ function PageHero({ eyebrow, title, copy }: { eyebrow: string; title: string; co
   );
 }
 
-function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvailability?: boolean }) {
+function MenuCard({ item, showAvailability = false, revealIndex = 0 }: { item: MenuItem; showAvailability?: boolean; revealIndex?: number }) {
   return (
-    <article className="menu-card">
+    <article className="menu-card reveal-on-scroll" style={{ "--reveal-delay": `${Math.min(revealIndex, 6) * 70}ms` } as React.CSSProperties}>
       <img src={assetUrl(item.image)} alt={`Imagen temporal para ${item.name}`} loading="lazy" />
       <div>
         <div className="card-topline">
@@ -700,11 +722,11 @@ function MapPanel() {
         <h2 id="map-title">Todas las paradas</h2>
         <p>Encuentra la parada más cercana y abre la ruta directa en Google Maps.</p>
         <div className="map-location-list">
-          {locations.map((location) => {
+          {locations.map((location, index) => {
             const state = getOpenState(location);
 
             return (
-              <article key={location.id}>
+              <article key={location.id} className="reveal-on-scroll" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                 <div className="map-location-heading">
                   <strong>{location.shortName}</strong>
                   <span className={state.isOpen ? "status open" : "status"}>{state.label}</span>
