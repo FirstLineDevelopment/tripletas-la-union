@@ -180,10 +180,11 @@ function FullSiteApp() {
   }, [path]);
 
   useEffect(() => {
-    const revealItems = Array.from(document.querySelectorAll<HTMLElement>(".reveal-on-scroll"));
+    const motionReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const supportsObserver = "IntersectionObserver" in window;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-      revealItems.forEach((item) => item.classList.add("is-visible"));
+    if (motionReduced || !supportsObserver) {
+      document.querySelectorAll<HTMLElement>(".reveal-on-scroll").forEach((item) => item.classList.add("is-visible"));
       return;
     }
 
@@ -198,8 +199,22 @@ function FullSiteApp() {
       { rootMargin: "0px 0px -12% 0px", threshold: 0.18 }
     );
 
-    revealItems.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
+    const observeRevealItems = () => {
+      document.querySelectorAll<HTMLElement>(".reveal-on-scroll:not(.is-visible)").forEach((item) => observer.observe(item));
+    };
+
+    observeRevealItems();
+
+    const mutationObserver = new MutationObserver(() => {
+      requestAnimationFrame(observeRevealItems);
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
   }, [path]);
 
   return (
