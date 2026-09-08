@@ -246,7 +246,7 @@ function Header({
         Nosotros
       </Link>
       <Link href="/#galeria" onClick={onCloseMenu}>
-        Galería
+        Social
       </Link>
     </>
   );
