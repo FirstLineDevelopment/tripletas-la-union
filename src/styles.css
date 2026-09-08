@@ -448,15 +448,112 @@ p {
   min-height: 330px;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--union-charcoal);
+  position: relative;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(245, 184, 0, 0.16), transparent 20%),
+    radial-gradient(circle at 82% 72%, rgba(217, 50, 38, 0.18), transparent 22%),
+    linear-gradient(135deg, rgba(255, 248, 232, 0.08), transparent 34%),
+    var(--union-charcoal);
 }
 
-.map-canvas iframe {
-  width: 100%;
-  height: 100%;
+.map-visual {
+  position: relative;
   min-height: 330px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.map-road {
+  position: absolute;
   display: block;
-  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 248, 232, 0.18);
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.22);
+}
+
+.map-road-main {
+  width: 124%;
+  height: 20px;
+  left: -12%;
+  top: 52%;
+  transform: rotate(-8deg);
+}
+
+.map-road-cross {
+  width: 86%;
+  height: 12px;
+  left: 6%;
+  top: 35%;
+  transform: rotate(28deg);
+  opacity: 0.72;
+}
+
+.map-area {
+  position: absolute;
+  color: rgba(255, 248, 232, 0.5);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.map-area-north {
+  left: 48%;
+  top: 12%;
+}
+
+.map-area-west {
+  left: 12%;
+  bottom: 16%;
+}
+
+.map-area-east {
+  right: 8%;
+  top: 28%;
+}
+
+.map-pin {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--union-cream);
+  font-weight: 950;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.map-pin:hover,
+.map-pin:focus-visible {
+  color: var(--union-yellow);
+}
+
+.map-pin span {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--union-yellow);
+  color: var(--union-black);
+  box-shadow: 0 8px 0 var(--union-red);
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 1.2rem;
+}
+
+.map-pin strong {
+  max-width: 160px;
+  line-height: 1.05;
+}
+
+.map-pin-pinero {
+  left: 18%;
+  top: 33%;
+}
+
+.map-pin-65-infanteria {
+  right: 10%;
+  top: 58%;
 }
 
 .map-location-list {
@@ -1008,11 +1105,56 @@ p {
   }
 
   .map-canvas {
-    min-height: 230px;
+    min-height: 260px;
   }
 
-  .map-canvas iframe {
-    min-height: 230px;
+  .map-visual {
+    min-height: 260px;
+  }
+
+  .map-area {
+    font-size: 0.66rem;
+  }
+
+  .map-area-north {
+    left: 44%;
+    top: 10%;
+  }
+
+  .map-area-west {
+    left: 8%;
+    bottom: 12%;
+  }
+
+  .map-area-east {
+    right: 4%;
+    top: 24%;
+  }
+
+  .map-pin {
+    gap: 8px;
+    font-size: 0.84rem;
+  }
+
+  .map-pin span {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    box-shadow: 0 6px 0 var(--union-red);
+  }
+
+  .map-pin strong {
+    max-width: 116px;
+  }
+
+  .map-pin-pinero {
+    left: 8%;
+    top: 32%;
+  }
+
+  .map-pin-65-infanteria {
+    right: 5%;
+    top: 60%;
   }
 
   .site-footer {

@@ -691,10 +691,6 @@ function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvai
 }
 
 function MapPanel() {
-  const mapQuery = encodeURIComponent(
-    locations.map((location) => `${location.name} ${location.addressLines.join(" ")}`).join(" ")
-  );
-
   return (
     <section className="map-panel" aria-labelledby="map-title">
       <div>
@@ -729,12 +725,24 @@ function MapPanel() {
         </div>
       </div>
       <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
-        <iframe
-          title="Mapa de Tripletas La Unión"
-          src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        <div className="map-visual">
+          <span className="map-road map-road-main" />
+          <span className="map-road map-road-cross" />
+          <span className="map-area map-area-north">San Juan</span>
+          <span className="map-area map-area-east">65 de Infantería</span>
+          <span className="map-area map-area-west">Av. Piñero</span>
+          {locations.map((location, index) => (
+            <Link
+              key={location.id}
+              href={`/locations/${location.id}`}
+              className={`map-pin map-pin-${location.id}`}
+              onClick={() => trackEvent("location_selected", { location: location.id, source: "map_pin" })}
+            >
+              <span>{index + 1}</span>
+              <strong>{location.shortName}</strong>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
