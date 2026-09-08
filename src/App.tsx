@@ -332,6 +332,20 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         <p>Cuando la noche sigue, la comida también. Llama directo y llega listo.</p>
       </section>
 
+      <section className="section split-section" id="nosotros">
+        <div>
+          <p className="eyebrow">Nosotros</p>
+          <h2>Comida que resuelve.</h2>
+          <p>
+            Tripletas La Unión nació con una misión sencilla: servir comida que resuelva el hambre de verdad. Porciones
+            generosas, preparación al momento, combinaciones a tu gusto y servicio rápido para la ruta, la salida o la noche.
+          </p>
+        </div>
+        <div className="about-logo-panel">
+          <img src={assetUrl("/images/branding/Logo.png")} alt="Tripletas La Unión" />
+        </div>
+      </section>
+
       <section className="section gallery" id="galeria">
         <div>
           <p className="eyebrow">Social</p>
@@ -349,20 +363,6 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Papas-locas-de-tripleta.png")}")` } as React.CSSProperties}>Papas locas</span>
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Churrasco.png")}")` } as React.CSSProperties}>Churrasco</span>
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Wrap.png")}")` } as React.CSSProperties}>Wrap</span>
-        </div>
-      </section>
-
-      <section className="section split-section" id="nosotros">
-        <div>
-          <p className="eyebrow">Nosotros</p>
-          <h2>Comida que resuelve.</h2>
-          <p>
-            Tripletas La Unión nació con una misión sencilla: servir comida que resuelva el hambre de verdad. Porciones
-            generosas, preparación al momento, combinaciones a tu gusto y servicio rápido para la ruta, la salida o la noche.
-          </p>
-        </div>
-        <div className="about-logo-panel">
-          <img src={assetUrl("/images/branding/Logo.png")} alt="Tripletas La Unión" />
         </div>
       </section>
 
