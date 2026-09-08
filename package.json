@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --config vite.config.ts",
+    "build:map-test": "tsc -b && vite build --config vite.config.ts --mode map-test",
     "preview": "vite preview --host 127.0.0.1",
     "deploy:firebase": "npm run build && firebase deploy --only hosting --project tripletas-la-union",
+    "deploy:firebase:map-test": "npm run build:map-test && firebase hosting:channel:deploy full-site-test --project tripletas-la-union --expires 30d",
     "deploy": "npm run deploy:firebase"
   },
   "dependencies": {

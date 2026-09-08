@@ -18,6 +18,7 @@ const routes = {
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 const isComingSoonBuild = import.meta.env.VITE_COMING_SOON === "true";
+const showMap = import.meta.env.MODE === "map-test" || import.meta.env.VITE_SHOW_MAP === "true";
 
 const withBasePath = (href: string) => {
   if (!href.startsWith("/")) return href;
@@ -425,9 +426,11 @@ function LocationsPage() {
   return (
     <main className="page">
       <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Av. Piñero y 65 de Infantería." />
-      <section className="section">
-        <MapPanel />
-      </section>
+      {showMap ? (
+        <section className="section">
+          <MapPanel />
+        </section>
+      ) : null}
     </main>
   );
 }
