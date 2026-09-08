@@ -199,19 +199,38 @@ function FullSiteApp() {
       { rootMargin: "0px 0px -12% 0px", threshold: 0.18 }
     );
 
+    let revealRefreshFrame = 0;
+    let revealRefreshTimeout = 0;
+
     const observeRevealItems = () => {
       document.querySelectorAll<HTMLElement>(".reveal-on-scroll:not(.is-visible)").forEach((item) => observer.observe(item));
+    };
+
+    const queueRevealRefresh = () => {
+      window.cancelAnimationFrame(revealRefreshFrame);
+      window.clearTimeout(revealRefreshTimeout);
+
+      revealRefreshFrame = window.requestAnimationFrame(observeRevealItems);
+      revealRefreshTimeout = window.setTimeout(observeRevealItems, 120);
     };
 
     observeRevealItems();
 
     const mutationObserver = new MutationObserver(() => {
-      requestAnimationFrame(observeRevealItems);
+      queueRevealRefresh();
     });
 
     mutationObserver.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("click", queueRevealRefresh);
+    window.addEventListener("keyup", queueRevealRefresh);
+    window.addEventListener("hashchange", queueRevealRefresh);
 
     return () => {
+      window.cancelAnimationFrame(revealRefreshFrame);
+      window.clearTimeout(revealRefreshTimeout);
+      window.removeEventListener("click", queueRevealRefresh);
+      window.removeEventListener("keyup", queueRevealRefresh);
+      window.removeEventListener("hashchange", queueRevealRefresh);
       mutationObserver.disconnect();
       observer.disconnect();
     };
