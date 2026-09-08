@@ -691,8 +691,7 @@ function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvai
 }
 
 function MapPanel() {
-  const mapRouteUrl =
-    "https://maps.google.com/maps?saddr=274%20Av.%20Jesus%20T.%20Pinero%2C%20San%20Juan%2C%20Puerto%20Rico%2000927&daddr=Av.%2065%20de%20Infanteria%2C%20San%20Juan%2C%20Puerto%20Rico%2000924&output=embed";
+  const mapUrl = "https://maps.google.com/maps?ll=18.4054,-66.038&z=13&t=m&output=embed";
 
   return (
     <section className="map-panel" aria-labelledby="map-title">
@@ -730,10 +729,14 @@ function MapPanel() {
       <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
         <iframe
           title="Mapa de Tripletas La Unión"
-          src={mapRouteUrl}
+          src={mapUrl}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
+        <div className="map-marker-layer" aria-hidden="true">
+          <span className="google-map-pin google-map-pin-pinero">Av. Piñero</span>
+          <span className="google-map-pin google-map-pin-65">65 de Infantería</span>
+        </div>
       </div>
     </section>
   );

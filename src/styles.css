@@ -448,6 +448,7 @@ p {
   min-height: 330px;
   border-radius: 8px;
   overflow: hidden;
+  position: relative;
   background: var(--union-charcoal);
 }
 
@@ -457,6 +458,48 @@ p {
   min-height: 330px;
   display: block;
   border: 0;
+}
+
+.map-marker-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.google-map-pin {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px 7px 8px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.88);
+  color: var(--union-cream);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
+  font-size: 0.8rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.google-map-pin::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 4px solid var(--union-red);
+  border-radius: 999px 999px 999px 0;
+  background: var(--union-yellow);
+  transform: rotate(-45deg);
+}
+
+.google-map-pin-pinero {
+  left: 22%;
+  top: 42%;
+}
+
+.google-map-pin-65 {
+  right: 16%;
+  top: 38%;
 }
 
 .map-location-list {
