@@ -426,11 +426,9 @@ function LocationsPage() {
   return (
     <main className="page">
       <PageHero eyebrow="Ubicaciones" title="Encuentra tu Unión." copy="Av. Piñero y 65 de Infantería." />
-      {showMap ? (
-        <section className="section">
-          <MapPanel />
-        </section>
-      ) : null}
+      <section className="section">
+        <MapPanel />
+      </section>
     </main>
   );
 }
@@ -699,7 +697,6 @@ function MapPanel() {
   return (
     <section className="map-panel" aria-labelledby="map-title">
       <div>
-        <p className="eyebrow">Mapa</p>
         <h2 id="map-title">Todas las paradas</h2>
         <p>Encuentra la parada más cercana y abre la ruta directa en Google Maps.</p>
         <div className="map-location-list">
@@ -729,18 +726,20 @@ function MapPanel() {
           })}
         </div>
       </div>
-      <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
-        <iframe
-          title="Mapa de Tripletas La Unión"
-          src={mapUrl}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-        <div className="map-marker-layer" aria-hidden="true">
-          <span className="google-map-pin google-map-pin-pinero">Av. Piñero</span>
-          <span className="google-map-pin google-map-pin-65">65 de Infantería</span>
+      {showMap ? (
+        <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
+          <iframe
+            title="Mapa de Tripletas La Unión"
+            src={mapUrl}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <div className="map-marker-layer" aria-hidden="true">
+            <span className="google-map-pin google-map-pin-pinero">Av. Piñero</span>
+            <span className="google-map-pin google-map-pin-65">65 de Infantería</span>
+          </div>
         </div>
-      </div>
+      ) : null}
     </section>
   );
 }
