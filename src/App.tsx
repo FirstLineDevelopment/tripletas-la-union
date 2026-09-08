@@ -691,6 +691,9 @@ function MenuCard({ item, showAvailability = false }: { item: MenuItem; showAvai
 }
 
 function MapPanel() {
+  const mapRouteUrl =
+    "https://maps.google.com/maps?saddr=274%20Av.%20Jesus%20T.%20Pinero%2C%20San%20Juan%2C%20Puerto%20Rico%2000927&daddr=Av.%2065%20de%20Infanteria%2C%20San%20Juan%2C%20Puerto%20Rico%2000924&output=embed";
+
   return (
     <section className="map-panel" aria-labelledby="map-title">
       <div>
@@ -725,24 +728,12 @@ function MapPanel() {
         </div>
       </div>
       <div className="map-canvas" aria-label="Mapa de Tripletas La Unión en Puerto Rico">
-        <div className="map-visual">
-          <span className="map-road map-road-main" />
-          <span className="map-road map-road-cross" />
-          <span className="map-area map-area-north">San Juan</span>
-          <span className="map-area map-area-east">65 de Infantería</span>
-          <span className="map-area map-area-west">Av. Piñero</span>
-          {locations.map((location, index) => (
-            <Link
-              key={location.id}
-              href={`/locations/${location.id}`}
-              className={`map-pin map-pin-${location.id}`}
-              onClick={() => trackEvent("location_selected", { location: location.id, source: "map_pin" })}
-            >
-              <span>{index + 1}</span>
-              <strong>{location.shortName}</strong>
-            </Link>
-          ))}
-        </div>
+        <iframe
+          title="Mapa de Tripletas La Unión"
+          src={mapRouteUrl}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
     </section>
   );
