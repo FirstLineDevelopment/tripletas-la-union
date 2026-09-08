@@ -1008,7 +1008,11 @@ p {
   }
 
   .map-canvas {
-    display: none;
+    min-height: 230px;
+  }
+
+  .map-canvas iframe {
+    min-height: 230px;
   }
 
   .site-footer {
