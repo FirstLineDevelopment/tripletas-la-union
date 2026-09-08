@@ -295,22 +295,17 @@ function Header({
 }
 
 function HomePage({ onOrder }: { onOrder: () => void }) {
-  const featuredItems = menuItems.filter((item) => item.featured && item.active).slice(0, 6);
-
   return (
     <main>
       <section className="hero" style={{ "--hero-image": `url("${assetUrl("/images/hero/tripleta-hero.png")}")` } as React.CSSProperties}>
         <div className="hero-content">
-          <p className="eyebrow">2 ubicaciones en Puerto Rico</p>
+          <p className="eyebrow">Puerto Rico</p>
           <h1>El hambre no espera.</h1>
           <p className="hero-copy">Tripletas, churrasco, pastrami y más. Sabor boricua hecho pa' esa hambre de verdad.</p>
           <div className="button-row">
-            <Link href="/menu" className="primary-cta" onClick={() => trackEvent("menu_view")}>
-              Ver menú
-            </Link>
-            <Link href="/locations" className="secondary-cta">
-              Encuentra tu Unión
-            </Link>
+            <button className="primary-cta" onClick={onOrder}>
+              Llama para ordenar
+            </button>
           </div>
         </div>
       </section>
@@ -323,9 +318,6 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
             La tripleta es comida boricua de calle en su punto: pan caliente, carnes, sabor y una porción que resuelve.
             Aquí se presenta sin inventar secretos de receta: lo importante es pedirla como te gusta.
           </p>
-          <Link href="/menu" className="text-link">
-            Ver el menú
-          </Link>
         </div>
         <div className="feature-panel" style={{ "--feature-image": `url("${assetUrl("/images/menu/Hechas al momento.png")}")` } as React.CSSProperties}>
           <span>Tripletas</span>
@@ -333,47 +325,10 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         </div>
       </section>
 
-      <section className="section dark-band" id="menu">
-        <div className="section-heading">
-          <p className="eyebrow">Menú</p>
-          <h2>Pa' esa hambre de verdad.</h2>
-          <Link href="/menu" className="secondary-cta">
-            Ver menú completo
-          </Link>
-        </div>
-        <div className="menu-grid">
-          {featuredItems.map((item) => (
-            <MenuCard key={item.id} item={item} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section customization">
-        <p className="eyebrow">A tu gusto</p>
-        <h2>Aquí se hace como tú la pidas.</h2>
-        <p>Pollo, beefsteak, churrasco, pastrami o combina tus favoritas.</p>
-        <div className="meat-tags" aria-label="Opciones populares de carnes">
-          {["Pollo", "Beefsteak", "Churrasco", "Pastrami", "Mixtas"].map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-      </section>
-
-      <section className="section" id="ubicaciones">
-        <div className="section-heading">
-          <p className="eyebrow">Ubicaciones</p>
-          <h2>Encuentra tu Unión.</h2>
-          <Link href="/locations" className="text-link">
-            Ver todas
-          </Link>
-        </div>
-        <MapPanel />
-      </section>
-
       <section className="section late-night">
         <p className="eyebrow">Late night</p>
         <h2>Del jangueo pa' La Unión.</h2>
-        <p>Cuando la noche sigue, la comida también. Busca tu parada, llama y llega directo.</p>
+        <p>Cuando la noche sigue, la comida también. Llama directo y llega listo.</p>
       </section>
 
       <section className="section gallery" id="galeria">
@@ -388,7 +343,7 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
             </a>
           </div>
         </div>
-        <div className="gallery-grid" aria-label="Fotos destacadas del menú">
+        <div className="gallery-grid" aria-label="Fotos destacadas de Tripletas La Unión">
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Tripleta2.png")}")` } as React.CSSProperties}>Tripleta</span>
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Papas-locas-de-tripleta.png")}")` } as React.CSSProperties}>Papas locas</span>
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Churrasco.png")}")` } as React.CSSProperties}>Churrasco</span>
@@ -412,12 +367,9 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
 
       <section className="final-cta">
         <h2>¿Con hambre?</h2>
-        <p>Busca tu ubicación más cercana y pide la tuya.</p>
+        <p>Llama directo y pide la tuya.</p>
         <div className="button-row">
-          <Link href="/locations" className="primary-cta">
-            Encuentra tu ubicación
-          </Link>
-          <button className="secondary-cta" onClick={onOrder}>
+          <button className="primary-cta" onClick={onOrder}>
             Llama para ordenar
           </button>
         </div>
