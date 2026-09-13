@@ -51,11 +51,11 @@ export const menuItems: MenuItem[] = [
     name: "Pollo / Beefsteak / Combinaciones",
     description: "Combina tus carnes como prefieras: pollo, beefsteak, churrasco, pastrami o mixtas.",
     category: "sandwiches",
-    image: "/images/menu/menu-placeholder.svg",
+    image: "/images/menu/Pollo.png",
     badges: ["A tu gusto"],
     availableLocations: ["pinero", "65-infanteria"],
     featured: false,
-    active: false,
+    active: true,
     sortOrder: 5,
   },
   {
