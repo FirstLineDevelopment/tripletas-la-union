@@ -48,8 +48,8 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "sandwich-pollo-beefsteak",
-    name: "Pollo / Beefsteak / Combinaciones",
-    description: "Combina tus carnes como prefieras: pollo, beefsteak, churrasco, pastrami o mixtas.",
+    name: "Pollo",
+    description: "Sándwich de pollo preparado al momento con el sabor de La Unión.",
     category: "sandwiches",
     image: "/images/menu/Pollo.png",
     badges: ["A tu gusto"],
