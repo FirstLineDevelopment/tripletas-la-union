@@ -50,7 +50,7 @@ export const locations: Location[] = [
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Tripletas%20La%20Union%2065%20de%20Infanteria%20San%20Juan%20Puerto%20Rico%2000924",
     wazeUrl: "https://waze.com/ul?q=Tripletas%20La%20Union%2065%20de%20Infanteria%20San%20Juan%20Puerto%20Rico%2000924&navigate=yes",
     coordinates: { lat: 18.4026, lng: -66.0127 },
-    hours: standardHours,
+    hours: { ...standardHours, monday: [] },
     characteristics: ["Takeout", "Servicio nocturno", "San Juan"],
     paymentMethods: paymentMethods(["cash", "athMovil"]),
     socials: {
