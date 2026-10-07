@@ -41,7 +41,7 @@ export const getTodayHours = (location: Location, date = new Date()) => {
   return location.hours[day];
 };
 
-export const formatHours = (ranges: HoursRange[]) => (ranges.length > 0 ? ranges.map((range) => range.label).join(", ") : "Closed");
+export const formatHours = (ranges: HoursRange[]) => (ranges.length > 0 ? ranges.map((range) => range.label).join(", ") : "Cerrado");
 
 export const getOpenState = (location: Location, date = new Date()) => {
   const { day, minutes } = getPuertoRicoDateParts(date);
