@@ -382,11 +382,31 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
         </div>
       </section>
 
+      <div className="section-divider" aria-hidden="true" />
+
       <section className="section late-night reveal-on-scroll">
         <p className="eyebrow">Late night</p>
         <h2>Del jangueo pa' La Unión.</h2>
         <p>Cuando la noche sigue, la comida también. Llama directo y llega listo.</p>
       </section>
+
+      <div className="section-divider" aria-hidden="true" />
+
+      <section className="section video-feature reveal-on-scroll" aria-labelledby="video-feature-title">
+        <div className="video-feature-copy">
+          <p className="eyebrow">En movimiento</p>
+          <h2 id="video-feature-title">Así se vive La Unión.</h2>
+          <p>Una mirada rápida al sabor, la energía y el antojo que te espera cuando llegas.</p>
+        </div>
+        <figure className="video-frame">
+          <video autoPlay loop muted playsInline preload="metadata">
+            <source src={assetUrl("/videos/tripletas-la-union.mp4")} type="video/mp4" />
+            Tu navegador no puede reproducir este video. Visita nuestras redes sociales para ver más de Tripletas La Unión.
+          </video>
+        </figure>
+      </section>
+
+      <div className="section-divider" aria-hidden="true" />
 
       <section className="section split-section reveal-on-scroll" id="nosotros">
         <div>
@@ -401,6 +421,8 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
           <img src={assetUrl("/images/branding/Logo.png")} alt="Tripletas La Unión" />
         </div>
       </section>
+
+      <div className="section-divider" aria-hidden="true" />
 
       <section className="section gallery reveal-on-scroll" id="galeria">
         <div>
@@ -421,6 +443,8 @@ function HomePage({ onOrder }: { onOrder: () => void }) {
           <span style={{ "--gallery-image": `url("${assetUrl("/images/menu/Wrap.png")}")` } as React.CSSProperties}>Wrap</span>
         </div>
       </section>
+
+      <div className="section-divider" aria-hidden="true" />
 
       <section className="final-cta reveal-on-scroll">
         <h2>¿Con hambre?</h2>
